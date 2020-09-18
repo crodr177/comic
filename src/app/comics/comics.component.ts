@@ -1,14 +1,15 @@
 import { Component, OnInit} from '@angular/core';
 import { ComicsService } from './comics.service';
-import { SearchService } from '../search/search.service';
 
 import { Store, select } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { filter } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import * as comicsActions from "./state/comics.actions";
+import { getComics as comicsSelector } from './state/comics.selectors';
 import * as fromComics from './state/comics.reducer';
-import { Comic } from "./comic.model";
+import { mapComicData } from "../helpers";
+import { Comic } from './state/comic.model';
 
 
 @Component({
@@ -17,51 +18,17 @@ import { Comic } from "./comic.model";
   styleUrls: ['./comics.component.css']
 })
 export class ComicsComponent implements OnInit {
-  isLiked: boolean;
-  idClicked: number;
-  clickedIds = [];
-  comics$: Observable<fromComics.ComicsState>;
-  comicPublishers = [];
+  comics$;
   comicsSubscription$;
   comicData;
+  getComics;
 
-  constructor(service: ComicsService, private searchService: SearchService, private store: Store<fromComics.AppState>) { }
-
-  onClick(index) {
-    this.idClicked = index;
-    this.checkIfClickedId(this.idClicked);
-  }
-
-  checkIfClickedId(id) {
-    if(this.clickedIds.includes(id)){
-      this.removeLike(id)
-    }
-    else {
-      this.setLike(id)
-    }
-  }
-
-  setLike(id) {
-    this.clickedIds.push(id);
-    this.isLiked = true;
-  }
-
-  removeLike(id) {
-    this.removeIdFromLikedArr(id);
-    this.isLiked = false;
-  }
-
-  removeIdFromLikedArr(id) {
-    var i = this.clickedIds.indexOf(id);
-    this.clickedIds.splice(i, 1);
-  }
+  constructor(service: ComicsService, private store: Store<fromComics.ComicsState>) {
+    this.getComics = service.getComics();
+    this.comics$ = this.store.pipe(select(comicsSelector));
+   }
 
   ngOnInit() {
-    this.store.dispatch(new comicsActions.GetComics([]));
-    this.comics$ = this.store.pipe(select(fromComics.getComics));
-    this.comicsSubscription$ = this.comics$.subscribe(d => {
-    this.comicData = d;
-    console.log(this.comicData);
-    });
+    this.getComics.subscribe();
   }
 }

@@ -1,6 +1,6 @@
 import { Action as Actions } from "@ngrx/store";
 
-import { Comic } from "../comic.model";
+import { Comic } from "./comic.model";
 
 export enum ComicsActionTypes {
   GET_COMICS = '[Comic] Get Comics',

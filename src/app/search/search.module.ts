@@ -5,12 +5,12 @@ import { RouterModule, Routes } from "@angular/router";
 import { EffectsModule, Actions } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 
-import { comicsReducer } from "./state/comics.reducer";
-import { ComicsEffect } from "./state/comics.effect";
+import { searchComicsReducer } from "./state/search.reducer";
+import { ComicsEffect } from "./state/search.effects";
 
-import { ComicsComponent } from './comics.component';
 import { LikeComponent } from "../like/like.component";
 import { SearchComponent } from '../search/search.component';
+import { ComicsComponent } from '../comics/comics.component';
 
 const comicsRoutes: Routes = [
   { path: "", component: ComicsComponent},
@@ -25,7 +25,7 @@ const comicsRoutes: Routes = [
     CommonModule,
     EffectsModule.forFeature([ComicsEffect]),
     RouterModule.forChild(comicsRoutes),
-    StoreModule.forFeature("comics", comicsReducer),
+    StoreModule.forFeature("search comics", searchComicsReducer),
   ]
 })
 export class ComicsModule { }

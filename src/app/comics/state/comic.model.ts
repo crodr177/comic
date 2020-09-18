@@ -3,4 +3,5 @@ export interface Comic {
   description: string;
   releaseDate: string;
   price: string;
+  diamond_id: string;
 }
