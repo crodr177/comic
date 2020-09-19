@@ -5,5 +5,5 @@ const getComicsFeatureState = createFeatureSelector<ComicsState>("comics")
 
 export const getComics = createSelector(
   getComicsFeatureState,
-  (state: ComicsState) => state
+  (state: ComicsState) => state.comics
 )

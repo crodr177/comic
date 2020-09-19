@@ -15,7 +15,7 @@ export class LikeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.id)
+    
   }
 
   onClick(id) {

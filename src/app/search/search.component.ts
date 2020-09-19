@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../search/search.service';
 
-import { Store, select } from "@ngrx/store";
-import { Observable } from "rxjs";
+import { Store } from "@ngrx/store";
 
 import * as searchComicsActions from "./state/search.actions";
-// import { getSearchComics as searchComicsSelector } from './state/search.selectors';
 import * as fromComics from '../comics/state/comics.reducer';
-import { mapComicData } from "../helpers";
 import { Comic } from '../comics/state/comic.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'search-bar',
@@ -16,24 +14,26 @@ import { Comic } from '../comics/state/comic.model';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  getComic;
-  title;
+  comics$: Comic[];
   service;
-  comicData: Comic[];
+  title;
 
-  constructor(service: SearchService, private store: Store<fromComics.AppState>) {
+  constructor(service: SearchService, private store: Store<fromComics.AppState>, private router: Router) {
     this.service = service;
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new searchComicsActions.GetSearchComics([]));
   }
 
   search() {
-    this.service.getComic(this.title).subscribe(data => {
-      this.comicData = mapComicData(data['comics']);
-      console.log(this.comicData);
-      this.store.dispatch(new searchComicsActions.GetSearchComics(this.comicData));
-    });
+    this.service.getSearchComics(this.title).subscribe();
+    this.router.navigate(['/comics']);
+    this.title = '';
+  }
+
+  allComics(){
+    this.router.navigate(['']);
   }
 
 }

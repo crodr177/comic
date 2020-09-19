@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ComicsComponent } from './comics/comics.component';
+import { SearchComicsComponent } from './search-comics/search-comics.component';
 
 const appRoutes: Routes = [
   { path: "", component: ComicsComponent },
   {
     path: "comics",
-    loadChildren: "../app/comics.comics.module#ComicsModule"
+    component: SearchComicsComponent
   }
 ];
 

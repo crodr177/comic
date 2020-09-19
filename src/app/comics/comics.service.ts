@@ -5,17 +5,15 @@ import { mapComicData } from "../helpers";
 import * as fromComics from './state/comics.reducer';
 import * as comicsActions from "./state/comics.actions";
 
-import { Store, select } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { map } from 'rxjs/operators';
-
-import { ofType, Actions } from '@ngrx/effects';
 
 @Injectable()
 export class ComicsService {
-  constructor(private httpClient: HttpClient, private store: Store<fromComics.AppState>, private _actions$: Actions) { }
+  constructor(private httpClient: HttpClient, private store: Store<fromComics.ComicsState>) { }
 
   getComics() {
-    return this.httpClient.get('https://cors-anywhere.herokuapp.com/https://api.shortboxed.com/comics/v1/new').pipe(
+    return this.httpClient.get('https://cors-anywhere.herokuapp.com/https://api.shortboxed.com/comics/v1/query?publisher=marvel').pipe(
       map(data => {
         this.store.dispatch(new comicsActions.GetComics(mapComicData(data['comics'])));
       })

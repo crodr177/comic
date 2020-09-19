@@ -1,2 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+
+.comic-liked {
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 1300px;
+}
+
+.bi-heart-fill {
+  color: #ccc;
+  font-size: 25px;
+  margin-right: 30px;
+}
+
+.liked {
+  color: red;
+}

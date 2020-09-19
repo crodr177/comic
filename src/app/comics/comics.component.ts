@@ -2,14 +2,11 @@ import { Component, OnInit} from '@angular/core';
 import { ComicsService } from './comics.service';
 
 import { Store, select } from "@ngrx/store";
-import { Observable } from "rxjs";
-import { map } from 'rxjs/operators';
 
 import * as comicsActions from "./state/comics.actions";
 import { getComics as comicsSelector } from './state/comics.selectors';
 import * as fromComics from './state/comics.reducer';
-import { mapComicData } from "../helpers";
-import { Comic } from './state/comic.model';
+import { Comic } from "./state/comic.model";
 
 
 @Component({
@@ -18,17 +15,17 @@ import { Comic } from './state/comic.model';
   styleUrls: ['./comics.component.css']
 })
 export class ComicsComponent implements OnInit {
-  comics$;
+  comics$: Comic[];
   comicsSubscription$;
-  comicData;
   getComics;
 
-  constructor(service: ComicsService, private store: Store<fromComics.ComicsState>) {
+  constructor(service: ComicsService, private store: Store<fromComics.AppState>) {
     this.getComics = service.getComics();
-    this.comics$ = this.store.pipe(select(comicsSelector));
+    this.store.pipe(select(comicsSelector)).subscribe(data => this.comics$ = data);
    }
 
   ngOnInit() {
+    this.store.dispatch(new comicsActions.GetComics([]));
     this.getComics.subscribe();
   }
 }
