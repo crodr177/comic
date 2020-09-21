@@ -27,9 +27,11 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
+    if(this.title !== undefined && this.title !== ''){
     this.service.getSearchComics(this.title).subscribe();
     this.router.navigate(['/comics']);
     this.title = '';
+    }
   }
 
   allComics(){

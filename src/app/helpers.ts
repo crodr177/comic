@@ -11,3 +11,10 @@ export function mapComicData(comicData): Comic[] {
     }
   })
 }
+
+export function randomBgColor() {
+  const bgColors = ['#41a6de', '#fedb0e', '#f6343c', '#d01e00', '#4c69f6'];
+
+  const random = Math.floor(Math.random() * bgColors.length);
+  return bgColors[random];
+}

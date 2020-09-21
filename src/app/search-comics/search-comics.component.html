@@ -1,13 +1,15 @@
 <ul>
-  <li *ngFor="let comic of comics$; let i=index;" class="comic-liked">
-    <div>
-      <like [id]="i"></like>
-    </div>
-    <div>
-      <h5>{{ comic.title }}</h5>
-      <p>{{ comic.description }}</p>
-      <p>{{ comic.release_date }}</p>
-      <p>{{ comic.price }}</p>
+  <li *ngFor="let comic of comics$; let i=index;">
+    <div class="comic-liked"  [style.background-color]="randomColor">
+      <div>
+        <like [id]="i"></like>
+      </div>
+      <div class="text-rec">
+        <h2>{{ comic.title }}</h2>
+        <p>{{ comic.description }}</p>
+        <p>{{ comic.release_date }}</p>
+        <p>{{ comic.price }}</p>
+      </div>
     </div>
   </li>
 </ul>

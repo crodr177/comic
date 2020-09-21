@@ -6,6 +6,8 @@ import { getSearchComics as searchComicsSelector } from '../search/state/search.
 import * as fromComics from '../comics/state/comics.reducer';
 import { Comic } from '../comics/state/comic.model';
 
+import * as helpers from "../helpers";
+
 @Component({
   selector: 'app-search-comics',
   templateUrl: './search-comics.component.html',
@@ -13,9 +15,11 @@ import { Comic } from '../comics/state/comic.model';
 })
 export class SearchComicsComponent implements OnInit {
   comics$: Comic[];
+  randomColor: any;
 
   constructor(private store: Store<fromComics.AppState>) { 
     this.store.pipe(select(searchComicsSelector)).subscribe(data => this.comics$ = data);
+    this.randomColor = helpers.randomBgColor();
   }
 
   ngOnInit(): void {
