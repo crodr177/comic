@@ -1,6 +1,6 @@
-# MarvelComics
+# Comics
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.1.
+Allows you to search for the new weekly release. 
 
 ## Development server
 

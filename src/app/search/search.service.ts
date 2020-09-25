@@ -16,7 +16,7 @@ export class SearchService {
   constructor(private httpClient: HttpClient, private store: Store<fromComics.ComicsState>) { }
 
   getSearchComics(character) {
-    return this.httpClient.get(`https://cors-anywhere.herokuapp.com/https://api.shortboxed.com/comics/v1/query?publisher=marvel&title=${character}`).pipe(
+    return this.httpClient.get(`https://cors-anywhere.herokuapp.com/https://api.shortboxed.com/comics/v1/query?title=${character}`).pipe(
       map(data => {
         this.store.dispatch(new searchComicsActions.GetSearchComics(mapComicData(data['comics'])));
       })

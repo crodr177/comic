@@ -13,7 +13,7 @@ export class ComicsService {
   constructor(private httpClient: HttpClient, private store: Store<fromComics.ComicsState>) { }
 
   getComics() {
-    return this.httpClient.get('https://cors-anywhere.herokuapp.com/https://api.shortboxed.com/comics/v1/query?publisher=marvel').pipe(
+    return this.httpClient.get('https://cors-anywhere.herokuapp.com/https://api.shortboxed.com/comics/v1/new').pipe(
       map(data => {
         this.store.dispatch(new comicsActions.GetComics(mapComicData(data['comics'])));
       })
